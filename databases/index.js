@@ -1,8 +1,16 @@
 const mongoose = require("mongoose");
-console.log(process.env.ATLAS_MONGO_CONNECTION_STRING)
+
+ATLAS_DB_USER=process.env.ATLAS_DB_USER
+ATLAS_DB_PASSWORD = process.env.ATLAS_DB_PASSWORD
+ATLAS_HOSTNAME=process.env.ATLAS_HOSTNAME
+ATLAS_DB_NAME = process.env.ATLAS_DB_NAME
+ATLAS_APP_NAME = process.env.ATLAS_APP_NAME
+
 mongoose
   .connect(
-    `mongodb+srv://${process.env.ATLAS_MONGO_CONNECTION_STRING}`
+    `mongodb+srv://${ATLAS_DB_USER}:${ATLAS_DB_PASSWORD}@${ATLAS_HOSTNAME}/${ATLAS_DB_NAME}
+    ?retryWrites=true&w=majority&appName=${ATLAS_APP_NAME}
+`
   )
   .then(() => {
     console.log("CONNEXION DB OK !");
